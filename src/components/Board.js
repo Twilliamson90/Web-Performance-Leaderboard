@@ -19,7 +19,7 @@ class Board extends Component {
   render() {
     return (
       <div className="app">
-        <Header appTitle="Web Performance Leaderboard" />
+        <Header appTitle="Web Performance Index" />
         <main id="main-content" className="container">
           <h2>Fastest Websites from US News National University Rankings</h2>
           <p className="app-lead-content">

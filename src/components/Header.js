@@ -5,7 +5,10 @@ const Header = props => (
     <div className="container">
       <div className="uk-grid">
         <div className="uk-width-1-1">
-          <h1 className="app-title">{props.appTitle}</h1>
+          <a href="/" className="app-masthead">
+            <img src="/fire.svg" className="app-logo" />
+            <span className="app-title">{props.appTitle}</span>
+          </a>
         </div>
       </div>
     </div>

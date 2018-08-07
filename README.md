@@ -1,4 +1,11 @@
-There is a development version of this website [here](https://web-pref-leaderboard.firebaseapp.com/)
+This project is still extremely early in development. There is a development version of this website [here](https://web-pref-leaderboard.firebaseapp.com/)
+
+## To-do
+
+- Setup connection to database.
+- Setup API.
+- Add social/email authencation.
+- Add ability to create a new board and add items to it.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
