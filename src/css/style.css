@@ -133,7 +133,7 @@ body {
 }
 
 .leaderboard-item-content > span:last-child {
-    flex-basis: 10%;
+    flex-basis: 15%;
     margin-left: auto;
     font-weight: 700;
     text-align: left;
