@@ -1,4 +1,6 @@
-This project is still extremely early in development. There is a development version of this website [here](https://web-pref-leaderboard.firebaseapp.com/)
+## [Demo](https://web-pref-leaderboard.firebaseapp.com/)
+
+This project is still in early development. There is a development version of this website [here](https://web-pref-leaderboard.firebaseapp.com/)
 
 ## To-do
 
