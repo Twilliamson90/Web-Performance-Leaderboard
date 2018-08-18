@@ -6,7 +6,7 @@ const Header = props => (
       <div className="uk-grid">
         <div className="uk-width-1-1">
           <a href="/" className="app-masthead">
-            <img src="/fire.svg" className="app-logo" />
+            <img src="/fire.svg" className="app-logo" alt="Flame" />
             <span className="app-title">{props.appTitle}</span>
           </a>
         </div>

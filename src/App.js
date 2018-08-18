@@ -12,7 +12,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.loadSampleBoards();
+    fetch("http://localhost:3001/boards")
+      .then(res => res.json())
+      .then(boardData => {
+        console.log(boardData);
+      });
+    // this.loadSampleBoards();
   }
 
   loadSampleBoards = () => {

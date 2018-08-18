@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import BoardCard from "../components/BoardCard";
-import sampleBoards from "../sample-boards";
 
 class Board extends Component {
   state = {
-    boards: {}
+    boards: []
   };
 
   componentDidMount() {
-    this.loadSampleItems();
+    fetch("http://localhost:3001/boards")
+      .then(res => res.json())
+      .then(boardData => {
+        this.setState({ boards: boardData });
+      });
   }
-
-  loadSampleItems = () => {
-    this.setState({ boards: sampleBoards });
-  };
 
   render() {
     return (

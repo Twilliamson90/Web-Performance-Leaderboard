@@ -2,13 +2,11 @@ import React from "react";
 
 class BoardCard extends React.Component {
   render() {
-    const { name } = this.props.details;
+    console.log(this.props);
+    const { name, slug } = this.props.details;
     return (
       <li className="uk-width-medium-1-4">
-        <a
-          href="/board/US-News-National-University-XPS9kFda"
-          className="board-card"
-        >
+        <a href={"/board/" + slug} className="board-card">
           {name}
         </a>
         <span />
