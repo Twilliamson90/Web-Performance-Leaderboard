@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BoardCard from "../components/BoardCard";
+import BoardCardForm from "../components/BoardCard";
 
 class Board extends Component {
   state = {
@@ -24,9 +24,16 @@ class Board extends Component {
         <h2>Featured Leaderboards</h2>
         <ul className="featured-boards uk-grid">
           {Object.keys(this.state.boards).map(key => (
-            <BoardCard key={key} index={key} details={this.state.boards[key]} />
+            <BoardCardForm
+              key={key}
+              index={key}
+              details={this.state.boards[key]}
+            />
           ))}
         </ul>
+        <p>
+          <a href="/add/board">Add Board</a>
+        </p>
       </React.Fragment>
     );
   }

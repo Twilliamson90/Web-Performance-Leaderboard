@@ -1,10 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 
-class LeaderboardItem extends React.Component {
+class LeaderboardItem extends Component {
   render() {
     const { display_name, current_score, progress, url } = this.props.details;
     let index = parseFloat(this.props.index) + 1;
-    console.log(progress);
     return (
       <li className="leaderboard-item">
         <a

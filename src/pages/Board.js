@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LeaderboardItem from "../components/LeaderboardItem";
+import Leaderboard from "../components/Leaderboard";
 
 class Board extends Component {
   state = {
@@ -8,41 +8,28 @@ class Board extends Component {
   };
 
   componentDidMount() {
-    const boardSlug = this.props.match.params.boardId;
+    const boardSlug = this.props.match.params.boardSlug;
     fetch("http://localhost:3001/boards/slug/" + boardSlug)
       .then(res => res.json())
       .then(siteData => {
-        let sites = this.calculateProgress(siteData.sites);
+        let sites = this.calculateSiteProgress(siteData.sites);
         this.setState({ meta: siteData.meta });
         this.setState({ sites: sites });
       });
   }
 
-  calculateProgress(sites) {
+  calculateSiteProgress(sites) {
     let scores = [];
-
-    sites.forEach(currentSite => {
-      scores.push(currentSite.current_score);
-    });
-
+    sites.forEach(currentSite => scores.push(currentSite.current_score));
     const scoreMin = Math.min(...scores);
     const scoreMax = Math.max(...scores);
 
-    let sitesWithProgress = sites.map(site => {
+    return sites.map(site => {
       let newSite = Object.assign({}, site);
       newSite.progress =
         ((site.current_score - scoreMax) * 100) / (scoreMin - scoreMax);
-      console.log(newSite);
       return newSite;
     });
-
-    console.log(sitesWithProgress);
-
-    // for (let i = 0; i < sites.length; i++) {
-    //   scores.push(sites[i].current_score);
-    // }
-    // console.log(scores);
-    return sitesWithProgress;
   }
 
   render() {
@@ -53,22 +40,10 @@ class Board extends Component {
           Ranking mobile speeds from around the world on a monthly basis. Click
           on a location for more local analysis.
         </p>
-        <div className="leaderboard">
-          <div className="leaderboard-table-headings">
-            <span>Rank</span>
-            <span>Name</span>
-            <span>Score</span>
-          </div>
-          <ul className="leaderboard-list">
-            {Object.keys(this.state.sites).map(key => (
-              <LeaderboardItem
-                key={key}
-                index={key}
-                details={this.state.sites[key]}
-              />
-            ))}
-          </ul>
-        </div>
+        <Leaderboard
+          sites={this.state.sites}
+          slug={this.props.match.params.boardSlug}
+        />
       </React.Fragment>
     );
   }
