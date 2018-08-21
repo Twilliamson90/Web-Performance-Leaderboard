@@ -66,6 +66,13 @@ body {
     font-size: 20px;
 }
 
+.app-footer {
+    border-top: 1px solid #ccc;
+    background-color: #eee;
+    margin-top: 50px;
+    height: 100px;
+}
+
 .app-lead-content {
     font-size: 18px;
     line-height: 1.3em;

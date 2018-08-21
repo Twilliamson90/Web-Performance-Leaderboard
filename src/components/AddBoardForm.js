@@ -41,6 +41,7 @@ class AddBoardForm extends Component {
                 ref={this.nameRef}
                 type="text"
                 placeholder="Board name"
+                required
               />
             </div>
             <button type="submit" className="button">

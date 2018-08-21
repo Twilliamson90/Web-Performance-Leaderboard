@@ -45,6 +45,7 @@ class AddSiteForm extends Component {
                 ref={this.nameRef}
                 type="text"
                 placeholder="Display name"
+                required
               />
             </div>
             <div>
@@ -56,6 +57,7 @@ class AddSiteForm extends Component {
                 ref={this.urlRef}
                 type="url"
                 placeholder="URL"
+                required
               />
             </div>
             <button type="submit" className="button">
