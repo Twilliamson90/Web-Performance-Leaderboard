@@ -4,8 +4,11 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Board from "./pages/Board";
+import Profile from "./pages/Profile";
 import AddBoardForm from "./components/AddBoardForm";
 import AddSiteForm from "./components/AddSiteForm";
+import SignUpForm from "./components/SignUpForm";
+import SignInForm from "./components/SignInForm";
 import NotFound from "./components/NotFound";
 
 class App extends Component {
@@ -36,6 +39,9 @@ class App extends Component {
                 exact
                 component={AddSiteForm}
               />
+              <Route path="/user/:id" exact component={Profile} />
+              <Route path="/sign-in" exact component={SignInForm} />
+              <Route path="/sign-up" exact component={SignUpForm} />
               <Route component={NotFound} />
             </Switch>
           </main>

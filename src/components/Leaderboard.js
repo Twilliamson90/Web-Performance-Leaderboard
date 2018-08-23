@@ -22,7 +22,7 @@ class Leaderboard extends Component {
           <li className="leaderboard-item">
             <a
               href={this.props.slug + "/add/site"}
-              className="leaderboard-item-link leaderboard-item-link-add"
+              className="leaderboard-item-container leaderboard-item-container-add"
             >
               <div className="leaderboard-item-content">
                 <span className="text-center">+ Add site</span>
