@@ -1,29 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Header = props => (
-  <header className="app-header">
-    <div className="container">
-      <div className="uk-grid">
-        <div className="uk-width-1-1">
-          <div className="app-header-grid">
-            <a href="/" className="app-masthead">
-              <img src="/fire.svg" className="app-logo" alt="Flame" />
-              <span className="app-title">{props.appTitle}</span>
-            </a>
-            <nav className="app-nav">
-              <ul className="app-nav-list">
-                <li className="app-nav-item">
-                  <a className="app-nav-link" href="/sign-in">
-                    Sign in
-                  </a>
-                </li>
-              </ul>
-            </nav>
+class Header extends Component {
+  render() {
+    console.log(this);
+    return (
+      <header className="app-header">
+        <div className="container">
+          <div className="uk-grid">
+            <div className="uk-width-1-1">
+              <div className="app-header-grid">
+                <a href="/" className="app-masthead">
+                  <img src="/fire.svg" className="app-logo" alt="Flame" />
+                  <span className="app-title">{this.props.appTitle}</span>
+                </a>
+                <nav className="app-nav">
+                  <ul className="app-nav-list">
+                    <li className="app-nav-item">
+                      <a className="app-nav-link" href="/sign-in">
+                        Sign in {this.props.user.id}
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </header>
-);
+      </header>
+    );
+  }
+}
 
 export default Header;

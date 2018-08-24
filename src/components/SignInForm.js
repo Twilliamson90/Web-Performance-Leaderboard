@@ -21,6 +21,7 @@ class SignInForm extends Component {
       .then(res => res.json())
       .then(signedInUser => {
         console.log(signedInUser);
+        this.props.rememberUser(signedInUser.user);
         localStorage.setItem("token", signedInUser.token);
         this.props.history.push("/user/" + signedInUser.user.id);
       });

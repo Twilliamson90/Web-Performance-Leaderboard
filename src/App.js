@@ -12,6 +12,10 @@ import SignInForm from "./components/SignInForm";
 import NotFound from "./components/NotFound";
 
 class App extends Component {
+  super() {
+    this.rememberUser = this.rememberUser.bind(this);
+  }
+
   state = {
     boards: {}
   };
@@ -24,11 +28,16 @@ class App extends Component {
       });
   }
 
+  isUserSignedIn = user => {
+    console.log(user);
+    this.setState(user);
+  };
+
   render() {
     return (
       <Router>
         <div className="app">
-          <Header appTitle="Web Performance Index" />
+          <Header appTitle="Web Performance Index" user={this.state.user} />
           <main id="main-content" className="container">
             <Switch>
               <Route path="/" exact component={Home} />
@@ -40,7 +49,13 @@ class App extends Component {
                 component={AddSiteForm}
               />
               <Route path="/user/:id" exact component={Profile} />
-              <Route path="/sign-in" exact component={SignInForm} />
+              <Route
+                path="/sign-in"
+                exact
+                render={props => (
+                  <SignInForm {...props} rememberUser={this.rememberUser} />
+                )}
+              />
               <Route path="/sign-up" exact component={SignUpForm} />
               <Route component={NotFound} />
             </Switch>
