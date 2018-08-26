@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Utility from "./Utility";
 
 class SignUpForm extends Component {
   displayNameRef = React.createRef();
@@ -12,7 +13,7 @@ class SignUpForm extends Component {
       email: this.emailRef.current.value,
       password: this.passwordRef.current.value
     };
-    await fetch("http://localhost:3001/sign-up", {
+    await fetch(`${Utility.apiEndpoint}/sign-up`, {
       method: "POST",
       headers: {
         Accept: "application/json",

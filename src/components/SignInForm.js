@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Utility from "../components/Utility";
 
 class SignInForm extends Component {
   emailRef = React.createRef();
@@ -10,7 +11,7 @@ class SignInForm extends Component {
       email: this.emailRef.current.value,
       password: this.passwordRef.current.value
     };
-    await fetch("http://localhost:3001/sign-in", {
+    await fetch(`${Utility.apiEndpoint}/sign-in`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -21,8 +22,9 @@ class SignInForm extends Component {
       .then(res => res.json())
       .then(signedInUser => {
         console.log(signedInUser);
-        this.props.rememberUser(signedInUser.user);
-        localStorage.setItem("token", signedInUser.token);
+        // this.props.rememberUser(signedInUser.user);
+        // localStorage.setItem("token", signedInUser.token);
+        Utility.setToken(signedInUser.token);
         this.props.history.push("/user/" + signedInUser.user.id);
       });
 

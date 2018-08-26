@@ -2,7 +2,13 @@ import React, { Component } from "react";
 
 class Header extends Component {
   render() {
-    console.log(this);
+    let userId = 0;
+
+    if (this.props.user) {
+      console.log("GOOGOGSDOOD");
+      userId = this.props.user.id;
+    }
+
     return (
       <header className="app-header">
         <div className="container">
@@ -17,7 +23,7 @@ class Header extends Component {
                   <ul className="app-nav-list">
                     <li className="app-nav-item">
                       <a className="app-nav-link" href="/sign-in">
-                        Sign in {this.props.user.id}
+                        Sign in {userId}
                       </a>
                     </li>
                   </ul>

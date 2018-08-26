@@ -3,7 +3,7 @@ import LeaderboardItem from "../components/LeaderboardItem";
 
 class Leaderboard extends Component {
   render() {
-    console.log(this);
+    // console.log(this);
     return (
       <div className="leaderboard">
         <div className="leaderboard-table-headings">

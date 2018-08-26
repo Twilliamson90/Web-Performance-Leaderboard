@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BoardCardForm from "../components/BoardCard";
+import Utility from "../components/Utility";
 
 class Board extends Component {
   state = {
@@ -7,7 +8,7 @@ class Board extends Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:3001/boards")
+    fetch(`${Utility.apiEndpoint}/boards`)
       .then(res => res.json())
       .then(boardData => {
         this.setState({ boards: boardData });

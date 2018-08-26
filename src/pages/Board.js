@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Leaderboard from "../components/Leaderboard";
+import Utility from "../components/Utility";
 
 class Board extends Component {
   state = {
@@ -9,7 +10,7 @@ class Board extends Component {
 
   componentDidMount() {
     const boardSlug = this.props.match.params.boardSlug;
-    fetch("http://localhost:3001/boards/slug/" + boardSlug)
+    fetch(`${Utility.apiEndpoint}/boards/slug/${boardSlug}`)
       .then(res => res.json())
       .then(siteData => {
         let sites = this.calculateSiteProgress(siteData.sites);

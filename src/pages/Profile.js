@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Leaderboard from "../components/Leaderboard";
+import Utility from "../components/Utility";
 
 class Profile extends Component {
   state = {
@@ -8,7 +8,7 @@ class Profile extends Component {
 
   componentDidMount() {
     const userId = this.props.match.params.id;
-    fetch(`http://localhost:3001/user/${userId}`, {
+    fetch(`${Utility.apiEndpoint}/user/${userId}`, {
       headers: {
         Authorization: localStorage.getItem("token")
       }
@@ -16,7 +16,7 @@ class Profile extends Component {
       .then(res => res.json())
       .then(userData => {
         this.setState({ user: userData.user });
-        console.log(userData);
+        // console.log(userData);
       });
   }
 

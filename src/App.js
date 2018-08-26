@@ -10,27 +10,29 @@ import AddSiteForm from "./components/AddSiteForm";
 import SignUpForm from "./components/SignUpForm";
 import SignInForm from "./components/SignInForm";
 import NotFound from "./components/NotFound";
+import Utility from "./components/Utility";
 
 class App extends Component {
   super() {
-    this.rememberUser = this.rememberUser.bind(this);
+    // this.checkAuth = this.checkAuth.bind(this);
+    // this.storeToken = this.storeToken.bind(this);
   }
 
   state = {
-    boards: {}
+    boards: {},
+    user: {}
   };
 
   componentDidMount() {
-    fetch("http://localhost:3001/boards")
-      .then(res => res.json())
-      .then(boardData => {
-        //console.log(boardData);
-      });
+    this.checkAuth();
+    this.setState({ user: { id: 1 } });
   }
 
-  isUserSignedIn = user => {
-    console.log(user);
-    this.setState(user);
+  checkAuth = () => {
+    const token = Utility.getToken();
+
+    //console.log("checkAuth");
+    //console.log(token);
   };
 
   render() {
@@ -53,7 +55,7 @@ class App extends Component {
                 path="/sign-in"
                 exact
                 render={props => (
-                  <SignInForm {...props} rememberUser={this.rememberUser} />
+                  <SignInForm {...props} setToken={this.setToken} />
                 )}
               />
               <Route path="/sign-up" exact component={SignUpForm} />
