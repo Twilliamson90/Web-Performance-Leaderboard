@@ -1,13 +1,27 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import Auth from "./Auth";
 
 class Header extends Component {
-  render() {
-    let userId = 0;
+  constructor(props) {
+    super(props);
+    console.log(props);
+    this.state = props;
+  }
 
-    if (this.props.user) {
-      console.log("GOOGOGSDOOD");
-      userId = this.props.user.id;
-    }
+  componentWillReceiveProps({ props }) {
+    this.setState({ ...this.state, props });
+  }
+
+  logoutClick = async () => {
+    await Auth.deauthenticateUser();
+    this.props.history.push("/");
+  };
+
+  render() {
+    const isLoggedIn = this.props.isLoggedIn;
+
+    console.log(this.state);
 
     return (
       <header className="app-header">
@@ -22,9 +36,18 @@ class Header extends Component {
                 <nav className="app-nav">
                   <ul className="app-nav-list">
                     <li className="app-nav-item">
-                      <a className="app-nav-link" href="/sign-in">
-                        Sign in {userId}
-                      </a>
+                      {isLoggedIn ? (
+                        <button
+                          className="app-nav-link"
+                          onClick={this.logoutClick}
+                        >
+                          Logout
+                        </button>
+                      ) : (
+                        <a className="app-nav-link" href="/sign-in">
+                          Sign in
+                        </a>
+                      )}
                     </li>
                   </ul>
                 </nav>
@@ -37,4 +60,6 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const HeaderWithRouter = withRouter(Header);
+
+export default HeaderWithRouter;

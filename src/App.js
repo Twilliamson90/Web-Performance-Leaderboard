@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -10,40 +15,71 @@ import AddSiteForm from "./components/AddSiteForm";
 import SignUpForm from "./components/SignUpForm";
 import SignInForm from "./components/SignInForm";
 import NotFound from "./components/NotFound";
+import Auth from "./components/Auth";
 import Utility from "./components/Utility";
 
-class App extends Component {
-  super() {
-    // this.checkAuth = this.checkAuth.bind(this);
-    // this.storeToken = this.storeToken.bind(this);
-  }
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      Auth.isUserAuthenticated() ? (
+        <Component {...props} {...rest} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
 
+const LoggedOutRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      Auth.isUserAuthenticated() ? (
+        <Redirect
+          to={{
+            pathname: "/",
+            state: { from: props.location }
+          }}
+        />
+      ) : (
+        <Component {...props} {...rest} />
+      )
+    }
+  />
+);
+
+const PropsRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => <Component {...props} {...rest} />} />
+);
+
+class App extends Component {
   state = {
     boards: {},
-    user: {}
+    isLoggedIn: false
   };
 
   componentDidMount() {
-    this.checkAuth();
-    this.setState({ user: { id: 1 } });
+    this.setState({ isLoggedIn: Auth.isUserAuthenticated() });
   }
-
-  checkAuth = () => {
-    const token = Utility.getToken();
-
-    //console.log("checkAuth");
-    //console.log(token);
-  };
 
   render() {
     return (
       <Router>
         <div className="app">
-          <Header appTitle="Web Performance Index" user={this.state.user} />
+          <Header
+            appTitle="Web Performance Index"
+            isLoggedIn={this.state.isLoggedIn}
+          />
           <main id="main-content" className="container">
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/add/board" exact component={AddBoardForm} />
+              <PrivateRoute path="/add/board" exact component={AddBoardForm} />
               <Route path="/b/:boardSlug" exact component={Board} />
               <Route
                 path="/b/:boardId/add/site"
@@ -55,7 +91,7 @@ class App extends Component {
                 path="/sign-in"
                 exact
                 render={props => (
-                  <SignInForm {...props} setToken={this.setToken} />
+                  <SignInForm {...props} setToken={Auth.setToken} />
                 )}
               />
               <Route path="/sign-up" exact component={SignUpForm} />

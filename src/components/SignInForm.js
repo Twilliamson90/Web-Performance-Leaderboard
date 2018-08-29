@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Auth from "../components/Auth";
 import Utility from "../components/Utility";
 
 class SignInForm extends Component {
@@ -24,7 +25,7 @@ class SignInForm extends Component {
         console.log(signedInUser);
         // this.props.rememberUser(signedInUser.user);
         // localStorage.setItem("token", signedInUser.token);
-        Utility.setToken(signedInUser.token);
+        Auth.authenticateUser(signedInUser.token);
         this.props.history.push("/user/" + signedInUser.user.id);
       });
 

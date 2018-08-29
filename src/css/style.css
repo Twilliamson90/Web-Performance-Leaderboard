@@ -83,7 +83,10 @@ body {
 }
 
 .app-nav-link {
+    background-color: transparent;
+    border: none;
     color: #fff;
+    cursor: pointer;
     text-decoration: none;
 }
 
