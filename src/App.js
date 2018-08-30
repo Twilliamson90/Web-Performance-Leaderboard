@@ -16,7 +16,6 @@ import SignUpForm from "./components/SignUpForm";
 import SignInForm from "./components/SignInForm";
 import NotFound from "./components/NotFound";
 import Auth from "./components/Auth";
-import Utility from "./components/Utility";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -27,7 +26,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/",
+            pathname: "/sign-in",
             state: { from: props.location }
           }}
         />
@@ -61,11 +60,19 @@ const PropsRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
   state = {
     boards: {},
-    isLoggedIn: false
+    authenticated: false
   };
 
   componentDidMount() {
-    this.setState({ isLoggedIn: Auth.isUserAuthenticated() });
+    this.userSignIn();
+  }
+
+  userSignIn() {
+    this.setState({ authenticated: Auth.isUserAuthenticated() });
+  }
+
+  userSignOut() {
+    this.setState({ authenticated: false });
   }
 
   render() {
@@ -74,27 +81,32 @@ class App extends Component {
         <div className="app">
           <Header
             appTitle="Web Performance Index"
-            isLoggedIn={this.state.isLoggedIn}
+            authenticated={this.state.authenticated}
+            userSignOut={() => this.userSignOut()}
           />
           <main id="main-content" className="container">
             <Switch>
               <Route path="/" exact component={Home} />
               <PrivateRoute path="/add/board" exact component={AddBoardForm} />
               <Route path="/b/:boardSlug" exact component={Board} />
-              <Route
+              <PrivateRoute
                 path="/b/:boardId/add/site"
                 exact
                 component={AddSiteForm}
               />
-              <Route path="/user/:id" exact component={Profile} />
-              <Route
+              <LoggedOutRoute
                 path="/sign-in"
                 exact
-                render={props => (
-                  <SignInForm {...props} setToken={Auth.setToken} />
-                )}
+                component={SignInForm}
+                userSignIn={() => this.userSignIn()}
               />
-              <Route path="/sign-up" exact component={SignUpForm} />
+              <LoggedOutRoute
+                path="/sign-up"
+                exact
+                component={SignUpForm}
+                userSignIn={() => this.userSignIn()}
+              />
+              <PrivateRoute path="/user/:id" exact component={Profile} />
               <Route component={NotFound} />
             </Switch>
           </main>

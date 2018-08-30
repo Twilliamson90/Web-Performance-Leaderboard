@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Auth from "./Auth";
 import Utility from "./Utility";
 
 class SignUpForm extends Component {
@@ -24,7 +25,8 @@ class SignUpForm extends Component {
       .then(res => res.json())
       .then(newAccount => {
         console.log(newAccount);
-        localStorage.setItem("token", newAccount.token);
+        Auth.authenticateUser(newAccount.token);
+        this.props.userSignIn();
         this.props.history.push("/user/" + newAccount.user.insertId);
       });
 

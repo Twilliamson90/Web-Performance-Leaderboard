@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Auth from "./Auth";
+import Utility from "./Utility";
 
 class AddSiteForm extends Component {
   nameRef = React.createRef();
@@ -7,16 +9,17 @@ class AddSiteForm extends Component {
   addSite = async event => {
     event.preventDefault();
     const boardSlug = this.props.match.params.boardId;
-
     const newSite = {
       displayName: this.nameRef.current.value,
       url: this.urlRef.current.value
     };
-    const requestUrl = `http://localhost:3001/boards/${boardSlug}/sites`;
+    const requestUrl = `${Utility.apiEndpoint}/boards/${boardSlug}/sites`;
+
     await fetch(requestUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
+        Authorization: Auth.getToken(),
         "Content-Type": "application/json"
       },
       body: JSON.stringify(newSite)

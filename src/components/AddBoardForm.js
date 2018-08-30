@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Auth from "./Auth";
+import Utility from "./Utility";
 
 class AddBoardForm extends Component {
   nameRef = React.createRef();
@@ -8,10 +10,11 @@ class AddBoardForm extends Component {
     const newBoard = {
       boardName: this.nameRef.current.value
     };
-    await fetch("http://localhost:3001/boards/", {
+    await fetch(`${Utility.apiEndpoint}/boards/`, {
       method: "POST",
       headers: {
         Accept: "application/json",
+        Authorization: Auth.getToken(),
         "Content-Type": "application/json"
       },
       body: JSON.stringify(newBoard)
@@ -20,8 +23,6 @@ class AddBoardForm extends Component {
       .then(newBoard => {
         this.props.history.push(`/b/${newBoard.slug}`);
       });
-
-    // console.log(newBoardRequest);
   };
 
   render() {
