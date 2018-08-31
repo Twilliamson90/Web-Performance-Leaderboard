@@ -17,18 +17,22 @@ class Leaderboard extends Component {
               key={key}
               index={key}
               details={this.props.sites[key]}
+              isOwner={this.props.isOwner}
+              deleteSite={this.props.deleteSite}
             />
           ))}
-          <li className="leaderboard-item">
-            <a
-              href={this.props.slug + "/add/site"}
-              className="leaderboard-item-container leaderboard-item-container-add"
-            >
-              <div className="leaderboard-item-content">
-                <span className="text-center">+ Add site</span>
-              </div>
-            </a>
-          </li>
+          {this.props.isOwner && (
+            <li className="leaderboard-item">
+              <a
+                href={this.props.slug + "/add/site"}
+                className="leaderboard-item-container leaderboard-item-container-add"
+              >
+                <div className="leaderboard-item-content">
+                  <span className="text-center">+ Add site</span>
+                </div>
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     );

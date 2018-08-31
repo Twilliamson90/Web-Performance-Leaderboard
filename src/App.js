@@ -86,7 +86,12 @@ class App extends Component {
           />
           <main id="main-content" className="container">
             <Switch>
-              <Route path="/" exact component={Home} />
+              <PropsRoute
+                path="/"
+                exact
+                component={Home}
+                authenticated={this.state.authenticated}
+              />
               <PrivateRoute path="/add/board" exact component={AddBoardForm} />
               <Route path="/b/:boardSlug" exact component={Board} />
               <PrivateRoute

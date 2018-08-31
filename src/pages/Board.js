@@ -5,17 +5,23 @@ import Utility from "../components/Utility";
 class Board extends Component {
   state = {
     meta: {},
-    sites: []
+    sites: [],
+    isOwner: false
   };
 
   componentDidMount() {
     const boardSlug = this.props.match.params.boardSlug;
-    fetch(`${Utility.apiEndpoint}/boards/slug/${boardSlug}`)
+    fetch(`${Utility.apiEndpoint}/boards/slug/${boardSlug}`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
       .then(res => res.json())
       .then(siteData => {
         let sites = this.calculateSiteProgress(siteData.sites);
         this.setState({ meta: siteData.meta });
         this.setState({ sites: sites });
+        this.setState({ isOwner: siteData.isOwner });
       });
   }
 
@@ -33,6 +39,12 @@ class Board extends Component {
     });
   }
 
+  deleteSite(siteId, boardId) {
+    console.log("deleting");
+    console.log(siteId);
+    console.log(boardId);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -44,6 +56,8 @@ class Board extends Component {
         <Leaderboard
           sites={this.state.sites}
           slug={this.props.match.params.boardSlug}
+          isOwner={this.state.isOwner}
+          deleteSite={() => this.deleteSite}
         />
       </React.Fragment>
     );

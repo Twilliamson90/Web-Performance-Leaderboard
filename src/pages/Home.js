@@ -16,6 +16,7 @@ class Board extends Component {
   }
 
   render() {
+    const isAuthenticated = this.props.authenticated;
     return (
       <React.Fragment>
         <p className="app-lead-content">
@@ -32,9 +33,15 @@ class Board extends Component {
             />
           ))}
         </ul>
-        <p>
-          <a href="/add/board">Add Board</a>
-        </p>
+        {isAuthenticated ? (
+          <p>
+            <a href="/add/board">Add Board</a>
+          </p>
+        ) : (
+          <p>
+            <a href="/sign-in">Sign in</a>
+          </p>
+        )}
       </React.Fragment>
     );
   }

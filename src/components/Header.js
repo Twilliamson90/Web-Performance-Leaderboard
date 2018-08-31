@@ -10,7 +10,6 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props);
     const isAuthenticated = this.props.authenticated;
 
     return (

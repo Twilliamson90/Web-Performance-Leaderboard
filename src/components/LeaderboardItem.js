@@ -2,7 +2,16 @@ import React, { Component } from "react";
 
 class LeaderboardItem extends Component {
   render() {
-    const { display_name, current_score, progress, url } = this.props.details;
+    const {
+      display_name,
+      current_score,
+      board_id,
+      progress,
+      url,
+      id
+    } = this.props.details;
+    console.log(this.props.details);
+    const isOwner = this.props.isOwner;
     let index = parseFloat(this.props.index) + 1;
     return (
       <li className="leaderboard-item">
@@ -21,6 +30,9 @@ class LeaderboardItem extends Component {
               </a>
             </span>
             <span className="leaderboard-item-link-score">{current_score}</span>
+            {isOwner && (
+              <button onClick={this.props.deleteSite(id, board_id)}>x</button>
+            )}
           </div>
           <div
             className="leaderboard-item-progress-bar"
