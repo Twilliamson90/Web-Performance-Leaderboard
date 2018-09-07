@@ -10,7 +10,6 @@ class LeaderboardItem extends Component {
       url,
       id
     } = this.props.details;
-    console.log(this.props.details);
     const isOwner = this.props.isOwner;
     let index = parseFloat(this.props.index) + 1;
     return (
@@ -31,7 +30,7 @@ class LeaderboardItem extends Component {
             </span>
             <span className="leaderboard-item-link-score">{current_score}</span>
             {isOwner && (
-              <button onClick={this.props.deleteSite(id, board_id)}>x</button>
+              <button className="leaderboard-item-delete" onClick={() => this.props.deleteSite(id, board_id)}>x</button>
             )}
           </div>
           <div

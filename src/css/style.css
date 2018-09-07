@@ -234,6 +234,13 @@ body {
     text-align: left;
 }
 
+.leaderboard-item-delete {
+    border: 1px solid #ccc;
+    border-right: none;
+    background-color: transparent;
+    padding: 6px 10px;
+}
+
 .leaderboard-item-progress-bar {
     background-color: #c31432;
     height: 3px;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Auth from "../components/Auth";
 import Leaderboard from "../components/Leaderboard";
 import Utility from "../components/Utility";
 
@@ -13,7 +14,7 @@ class Board extends Component {
     const boardSlug = this.props.match.params.boardSlug;
     fetch(`${Utility.apiEndpoint}/boards/slug/${boardSlug}`, {
       headers: {
-        Authorization: localStorage.getItem("token")
+        Authorization: Auth.getToken()
       }
     })
       .then(res => res.json())
@@ -40,9 +41,27 @@ class Board extends Component {
   }
 
   deleteSite(siteId, boardId) {
-    console.log("deleting");
-    console.log(siteId);
-    console.log(boardId);
+
+    const sites = this.state.sites;
+    console.log(sites);
+    // 2. update the state
+    // sites[key] = null;
+    // 3.  update state
+    // this.setState({ sites });
+
+    fetch(`${Utility.apiEndpoint}/boards/${boardId}/sites/${siteId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: Auth.getToken()
+      }
+    })
+      .then(res => res.json())
+      .then(r => {
+        if(r.success) {
+
+        }
+      });
+
   }
 
   render() {
@@ -57,7 +76,7 @@ class Board extends Component {
           sites={this.state.sites}
           slug={this.props.match.params.boardSlug}
           isOwner={this.state.isOwner}
-          deleteSite={() => this.deleteSite}
+          deleteSite={this.deleteSite}
         />
       </React.Fragment>
     );
