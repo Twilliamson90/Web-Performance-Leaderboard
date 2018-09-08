@@ -40,14 +40,11 @@ class Board extends Component {
     });
   }
 
-  deleteSite(siteId, boardId) {
-
+  deleteSite = (siteId, boardId) => {
     const sites = this.state.sites;
-    console.log(sites);
-    // 2. update the state
-    // sites[key] = null;
-    // 3.  update state
-    // this.setState({ sites });
+    const deletedSite = sites.find(s => s.id === siteId);
+    sites.splice(sites.indexOf(deletedSite), 1);
+    this.setState({ sites });
 
     fetch(`${Utility.apiEndpoint}/boards/${boardId}/sites/${siteId}`, {
       method: 'DELETE',
