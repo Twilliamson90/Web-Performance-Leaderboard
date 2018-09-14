@@ -63,7 +63,7 @@ class AddSiteForm extends Component {
                 required
               />
             </div>
-            <button type="submit" className="button">
+            <button type="submit" className="button button-primary">
               + Add Site
             </button>
           </form>

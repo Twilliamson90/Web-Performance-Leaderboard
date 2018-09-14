@@ -61,6 +61,20 @@ class Board extends Component {
 
   }
 
+  updateScores() {
+    console.log(this.state.meta);
+
+    fetch(`${Utility.apiEndpoint}/boards/${this.state.meta.id}/update`, {
+      headers: {
+        Authorization: Auth.getToken()
+      }
+    })
+      .then(res => res.json())
+      .then(r => {
+        console.log(r);
+      });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -69,6 +83,9 @@ class Board extends Component {
           Ranking mobile speeds from around the world on a monthly basis. Click
           on a location for more local analysis.
         </p>
+        {Auth.isUserAuthenticated() && (
+            <button className="leaderboard-update-button button" onClick={() => this.updateScores()}>Update scores</button>
+        )}
         <Leaderboard
           sites={this.state.sites}
           slug={this.props.match.params.boardSlug}

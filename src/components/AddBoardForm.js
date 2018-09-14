@@ -19,7 +19,10 @@ class AddBoardForm extends Component {
       },
       body: JSON.stringify(newBoard)
     })
-      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
       .then(newBoard => {
         this.props.history.push(`/b/${newBoard.slug}`);
       });
@@ -45,7 +48,7 @@ class AddBoardForm extends Component {
                 required
               />
             </div>
-            <button type="submit" className="button">
+            <button type="submit" className="button button-primary">
               + Add Board
             </button>
           </form>
